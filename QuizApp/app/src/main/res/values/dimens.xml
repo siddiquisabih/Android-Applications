@@ -1,0 +1,19 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <!--text size for only main screen-->
+    <dimen name="textSizeForMainScreen">28dp</dimen>
+
+    <!--text size for questions-->
+    <dimen name="questionSize">30sp</dimen>
+
+    <!--radio button text-->
+    <dimen name="radioText">24sp</dimen>
+
+    <!--margin between radio button-->
+    <dimen name="margin_btw_ques_button">30dp</dimen>
+
+</resources>

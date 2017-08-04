@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.sabih.quizapp.Question6"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What is the correct extention for java file?"
+        android:textSize="@dimen/questionSize"
+        />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=".index"
+        android:textSize="@dimen/radioText"
+        />
+
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=".java"
+        android:id="@+id/rightans6"
+        android:textSize="@dimen/radioText"
+        />
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=".class"
+        android:textSize="@dimen/radioText"
+        />
+
+
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=".xml"
+        android:textSize="@dimen/radioText"
+        />
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:id="@+id/nextToQuestion7"
+        />
+
+</LinearLayout>

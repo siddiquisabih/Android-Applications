@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sabih.quizapp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Question1"
+            android:label="Question # 1" />
+        <activity
+            android:name=".Question2"
+            android:label="Question # 2" />
+        <activity
+            android:name=".Question3"
+            android:label="Question # 3" />
+        <activity
+            android:name=".Question4"
+            android:label="Question # 4" />
+        <activity
+            android:name=".Question5"
+            android:label="Question # 5" />
+        <activity
+            android:name=".Question6"
+            android:label="Question # 6" />
+        <activity
+            android:name=".Question7"
+            android:label="Question # 7" />
+        <activity
+            android:name=".Question8"
+            android:label="Question # 8" />
+        <activity
+            android:name=".Question9"
+            android:label="Question # 9" />
+        <activity
+            android:name=".Question10"
+            android:label="Question # 10"
+            />
+        <activity android:name=".Result"
+            android:label="Result"
+            />
+    </application>
+
+</manifest>

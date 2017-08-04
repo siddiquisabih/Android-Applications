@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/t1"
+        android:layout_height="wrap_content"
+        android:text="Question Number"
+        android:textSize="22sp"
+        android:layout_marginBottom="54dp"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/t2"
+        android:layout_height="wrap_content"
+        android:text="how many hours in 2 days?"
+        android:layout_marginBottom="54dp"
+        android:textSize="22sp"
+
+
+        />
+
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rg"
+        android:checkedButton="@android:integer/config_shortAnimTime"
+        >
+
+
+        <RadioButton
+            android:id="@+id/option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:layout_marginBottom="16dp"
+            />
+
+        <RadioButton
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="7"
+            />
+
+        <RadioButton
+
+            android:id="@+id/option3"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_height="wrap_content"
+            android:text="6"
+            />
+    </RadioGroup>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Next"
+        android:id="@+id/button"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/result"
+        android:textSize="24sp"
+        />
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

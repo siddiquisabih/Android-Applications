@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.sabih.quizapp.Question7">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="when you create xml file what view created by android studio by default as a parent view?"
+        android:textSize="@dimen/questionSize"
+        />
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ListView"
+        android:textSize="@dimen/radioText"
+        />
+
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LinearLaoyout"
+        android:textSize="@dimen/radioText"
+        />
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RelativeLaoyout"
+        android:id="@+id/rightans7"
+        android:textSize="@dimen/radioText"
+        />
+
+
+
+    <RadioButton
+        android:layout_marginTop="@dimen/margin_btw_ques_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GridView"
+        android:textSize="@dimen/radioText"
+        />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:id="@+id/nextToQuestion8"
+        />
+
+
+</LinearLayout>
