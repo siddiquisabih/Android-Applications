@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+
+            >
+
+            <!--name heading-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="Name Of Participants (Separated By Commas)"
+            android:textColor="#0000FF"
+            />
+            <!--input box for names-->
+        <EditText
+            android:id="@+id/namesOfParticipants"
+            android:hint="eg : Anus , Ali "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            />
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+               android:text="Who Is Your Approver?"
+                android:textColor="#0000FF"    />
+            <EditText
+                android:id="@+id/approverName"
+                android:hint="Enter Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"    />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Enter Activity Name Which You Are Going To Access"
+                android:textColor="#0000FF"/>
+            <EditText
+                android:id="@+id/activityName"
+                android:hint="Enter Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Area Of Assessment ?"
+                android:textColor="#0000FF"/>
+            <EditText
+                android:id="@+id/assessment"
+                android:hint="Enter Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+
+
+
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Get Result"
+                android:onClick="btn"
+                />
+
+
+</LinearLayout>
+
+    </ScrollView>
+
+
+
