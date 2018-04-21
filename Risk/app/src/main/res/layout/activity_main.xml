@@ -27,6 +27,7 @@
             android:layout_height="20dp"
             android:text="Name Of Participants (Separated By Commas)"
             android:textColor="#0000FF"
+
             />
             <!--input box for names-->
         <EditText
@@ -73,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:text="Area Of Assessment ?"
+                android:text="Area Of Assessment"
                 android:textColor="#0000FF"/>
             <EditText
                 android:id="@+id/assessment"
@@ -81,6 +82,118 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"/>
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Risk Assessment Date"
+                android:textColor="#0000FF"/>
+
+
+
+            <EditText
+                android:id="@+id/tv_date"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:hint="Select Date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="What Type Of Hazards Involved ?"
+                android:textColor="#0000FF"/>
+
+
+            <Spinner
+            android:id="@+id/sp_picker"
+            android:layout_height="20dp"
+            android:layout_width="match_parent"
+            android:hint="Select Date"
+            android:layout_marginTop="12dp"
+            />
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Impact Of Risk?"
+                android:textColor="#0000FF"
+                android:layout_marginTop="12dp"
+                />
+
+
+
+            <EditText
+                android:id="@+id/riskImpact"
+                android:hint="Enter Here"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+
+
+            <!--base Risk-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Select Severity"
+                android:textColor="#0000FF"
+
+                />
+
+
+            <Spinner
+                android:id="@+id/base_severity"
+                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:hint="Select Severity"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+
+                />
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Select Probability"
+                android:textColor="#0000FF"
+
+                />
+
+
+            <Spinner
+                android:id="@+id/base_prob"
+                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:hint="Select Severity"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+
+                />
 
 
 
@@ -97,9 +210,13 @@
                 />
 
 
-</LinearLayout>
 
-    </ScrollView>
+
+
+        </LinearLayout>
+
+
+</ScrollView>
 
 
 
