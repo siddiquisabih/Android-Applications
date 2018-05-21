@@ -1,4 +1,5 @@
 package com.example.user.risk;
+import android.os.Environment;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     String [] severity = {"Very High" , "High" , "Medium" , "Low"};
     String [] probability = {"Extremely High","Often Likely","Likely","Unlikely","Extremely Unlikely"};
 
+    String path = Environment.getExternalStorageDirectory().getAbsolutePath() + '/' + 'a' ;
 
 
 
@@ -38,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //create file directry
+        File dir = new File(path);
+        dir.mkdir();
+
+
 
         //Date Picker Code start
         myCalendar = Calendar.getInstance();
@@ -91,15 +102,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         setBaseSeverity();
-        setBaseProbabilaty();
-
-
-
+        setActualProbability();
+        setActualSeverity();
+        setBaseProbability();
     }
 
 
 
     public void setBaseSeverity(){
+
+
         Spinner spin = findViewById(R.id.base_severity);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -119,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setBaseProbabilaty(){
+    public void setBaseProbability(){
         Spinner spin = findViewById(R.id.base_prob);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -142,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //not used yet
-    public void setActualSevertity(){
-        Spinner spin = findViewById(R.id.base_severity);
+
+    public void setActualSeverity(){
+        Spinner spin = findViewById(R.id.actual_severity);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -163,6 +175,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void setActualProbability(){
+    Spinner spin = findViewById(R.id.actual_prob);
+    spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
+        }
+
+        //Aye waie...
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {}
+    });
+
+    ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,probability);
+
+    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    spin.setAdapter(aa);
+
+
+
+
+}
 
 
 
@@ -173,6 +207,14 @@ public class MainActivity extends AppCompatActivity {
     // show some result according to his/her input
     // when this button clicked we collect all information from user then
     public void btn(View view){
+
+
+        //save file
+//        File file = new File(path + '/abc.txt');
+
+
+
+
 
         // first we get all data from user
         // access data by id's
@@ -205,7 +247,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         Spinner spin = findViewById(R.id.sp_picker);
-
+            String text = spin.getSelectedItem().toString();
+        Toast.makeText(getApplicationContext(),text , Toast.LENGTH_LONG).show();
 //        spin.setVisibility(View.GONE);
 
 
@@ -217,12 +260,27 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        //here we get existingControl text
+        TextView control = (TextView) findViewById(R.id.existingControl);
+        String existingControl= control.getText().toString();
+
+
+
+        //further control required
+        TextView fcontrol = (TextView) findViewById(R.id.furtherControl);
+        String furtherControl= fcontrol.getText().toString();
+
+
+
+
     }
 
 
 
+
+
     private void updateLabel() {
-        String myFormat = "dd-MMMM-yyyy"; //In which you need put here
+        String myFormat = "dd-MMMM-yyyy"; // format In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         tvDate.setText(sdf.format(myCalendar.getTime()));

@@ -197,6 +197,83 @@
 
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="What Is Your Existing Control"
+                android:textColor="#0000FF"/>
+            <EditText
+                android:id="@+id/existingControl"
+                android:hint="Enter Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+
+
+
+
+            <!--actual Risk-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Select Severity"
+                android:textColor="#0000FF"
+                />
+
+
+            <Spinner
+                android:id="@+id/actual_severity"
+                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:hint="Select Severity"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+
+                />
+
+
+
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Select Probability"
+                android:textColor="#0000FF"
+
+                />
+
+
+            <Spinner
+                android:id="@+id/actual_prob"
+                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:hint="Select Severity"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+
+                />
+
+
+
+            <!--further  control-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Further Control Measures Required"
+                android:textColor="#0000FF"/>
+            <EditText
+                android:id="@+id/furtherControl"
+                android:hint="Enter Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
 
 
 
