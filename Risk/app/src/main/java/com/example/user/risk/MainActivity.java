@@ -271,7 +271,24 @@ public class MainActivity extends AppCompatActivity {
         String furtherControl= fcontrol.getText().toString();
 
 
+        //String data = "This is the content of my file";
 
+        // get the path to sdcard
+        File sdcard = Environment.getExternalStorageDirectory();
+            // to this path add a new directory path
+        File dir = new File(sdcard.getAbsolutePath() + "/yasirFiles/");
+        // create this directory if not already created
+        dir.mkdir();
+        // create the file in which we will write the contents
+        File file = new File(dir, "Document1.txt");
+        FileOutputStream os = null;
+        try {
+            os = new FileOutputStream(file);
+            os.write(data.getBytes());
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
