@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),hazard[i] , Toast.LENGTH_LONG).show();
+               
             }
 
             //Aye waie...
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
+               
             }
 
             //Aye waie...
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
+            
             }
 
             //Aye waie...
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
+               
             }
 
             //Aye waie...
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
+         
         }
 
         //Aye waie...
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
         Spinner spin = findViewById(R.id.sp_picker);
             String text = spin.getSelectedItem().toString();
-        Toast.makeText(getApplicationContext(),text , Toast.LENGTH_LONG).show();
+     
 //        spin.setVisibility(View.GONE);
 
 
@@ -272,19 +272,38 @@ public class MainActivity extends AppCompatActivity {
 
 
         //String data = "This is the content of my file";
+        
+        // get chart picture which is saved in project  
 
-        // get the path to sdcard
+
+
+
+        // ArrayList<String> listOfString = new ArrayList<>();
+        
+        String data[7] = {Names , approverName , activityName , assessment , date , text , riskImpact , existingControl };
+        
+        // for (int a =0 ; a<listOfString.size() ; a++){
+
+        // listOfString.add(data[]);
+        // }
+         //here we create and save file as pdf
+
+        // get the path to sdcard or phone location document
+
         File sdcard = Environment.getExternalStorageDirectory();
             // to this path add a new directory path
-        File dir = new File(sdcard.getAbsolutePath() + "/yasirFiles/");
+        File dir = new File(sdcard.getAbsolutePath() + "/RiskFiles/");
         // create this directory if not already created
         dir.mkdir();
         // create the file in which we will write the contents
-        File file = new File(dir, "Document1.txt");
+        File file = new File(dir,  approverName +".pdf");
         FileOutputStream os = null;
         try {
             os = new FileOutputStream(file);
-            os.write(data.getBytes());
+            //file writing
+            for (int a = 0 ; a<= data.length ; a++){
+            os.write(data[a].getBytes());
+            }
             os.close();
         } catch (Exception e) {
             e.printStackTrace();
