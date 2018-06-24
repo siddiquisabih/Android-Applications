@@ -15,8 +15,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.widget.TextView;
@@ -24,6 +28,11 @@ import android.widget.TextView;
 import java.util.Calendar;
 import android.widget.DatePicker;
 
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Document;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     String [] probability = {"Extremely High","Often Likely","Likely","Unlikely","Extremely Unlikely"};
 
     String path = Environment.getExternalStorageDirectory().getAbsolutePath() + '/' + 'a' ;
-
+    File dir;
 
 
     @Override
@@ -45,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //create file directry
-        File dir = new File(path);
+        dir = new File(path);
         dir.mkdir();
 
 
@@ -85,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               
+                Toast.makeText(getApplicationContext(),hazard[i] , Toast.LENGTH_LONG).show();
             }
 
             //Aye waie...
@@ -116,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               
+                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
             }
 
             //Aye waie...
@@ -136,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            
+                Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
             }
 
             //Aye waie...
@@ -160,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               
+                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
             }
 
             //Aye waie...
@@ -180,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-         
+            Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
         }
 
         //Aye waie...
@@ -206,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
     // show some result according to his/her input
     // when this button clicked we collect all information from user then
-    public void btn(View view){
+    public void btn(View view) throws FileNotFoundException, DocumentException {
 
 
         //save file
@@ -248,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
         Spinner spin = findViewById(R.id.sp_picker);
             String text = spin.getSelectedItem().toString();
-     
+        Toast.makeText(getApplicationContext(),text , Toast.LENGTH_LONG).show();
 //        spin.setVisibility(View.GONE);
 
 
@@ -270,44 +279,14 @@ public class MainActivity extends AppCompatActivity {
         TextView fcontrol = (TextView) findViewById(R.id.furtherControl);
         String furtherControl= fcontrol.getText().toString();
 
+        Rectangle pagesize = new Rectangle(216f, 720f);
 
-        //String data = "This is the content of my file";
-        
-        // get chart picture which is saved in project  
-
-
-
-
-        // ArrayList<String> listOfString = new ArrayList<>();
-        
-        String data[7] = {Names , approverName , activityName , assessment , date , text , riskImpact , existingControl };
-        
-        // for (int a =0 ; a<listOfString.size() ; a++){
-
-        // listOfString.add(data[]);
-        // }
-         //here we create and save file as pdf
-
-        // get the path to sdcard or phone location document
-
-        File sdcard = Environment.getExternalStorageDirectory();
-            // to this path add a new directory path
-        File dir = new File(sdcard.getAbsolutePath() + "/RiskFiles/");
-        // create this directory if not already created
-        dir.mkdir();
-        // create the file in which we will write the contents
-        File file = new File(dir,  approverName +".pdf");
-        FileOutputStream os = null;
-        try {
-            os = new FileOutputStream(file);
-            //file writing
-            for (int a = 0 ; a<= data.length ; a++){
-            os.write(data[a].getBytes());
-            }
-            os.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Document document = new Document(pagesize, 36f, 72f, 108f, 180f);
+        PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf") );
+        document.open();
+        document.add(new Paragraph("Hello World! Hello People! " +
+                "Hello Sky! Hello Sun! Hello Moon! Hello Stars!"));
+        document.close();
 
     }
 
