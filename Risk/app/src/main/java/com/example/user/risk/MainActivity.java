@@ -29,8 +29,12 @@ import java.util.Calendar;
 import android.widget.DatePicker;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Document;
 
@@ -281,11 +285,77 @@ public class MainActivity extends AppCompatActivity {
 
         Rectangle pagesize = new Rectangle(216f, 720f);
 
-        Document document = new Document(pagesize, 36f, 72f, 108f, 180f);
+        Document document = new Document();
         PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf") );
         document.open();
         document.add(new Paragraph("Hello World! Hello People! " +
                 "Hello Sky! Hello Sun! Hello Moon! Hello Stars!"));
+
+        PdfPTable table = new PdfPTable(4);
+        //table.setTotalWidth(new float[]{ 160, 120 });
+        //table.setLockedWidth(true);
+
+        PdfPCell cell = new PdfPCell(new Phrase("Hazards Involved(HI)"));
+        cell.setFixedHeight(30);
+        //cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setColspan(4);
+        table.addCell(cell);
+
+
+        PdfPCell cell1 = new PdfPCell(new Phrase("Ergonomical(E)"));
+        cell1.setFixedHeight(30);
+        cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell1.setColspan(1);
+        table.addCell(cell1);
+
+        PdfPCell cell2 = new PdfPCell(new Phrase("Physical  "));
+        cell2.setFixedHeight(30);
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell2.setColspan(1);
+        table.addCell(cell2);
+
+        PdfPCell cell3 = new PdfPCell(new Phrase("Chemical(Ch)"));
+        cell3.setFixedHeight(30);
+        cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell3.setColspan(1);
+        table.addCell(cell3);
+
+        PdfPCell cell4 = new PdfPCell(new Phrase("Biological(B)"));
+        cell4.setFixedHeight(30);
+        cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell4.setColspan(1);
+        table.addCell(cell4);
+
+        PdfPCell cell5 = new PdfPCell(new Phrase("Y"));
+        cell5.setFixedHeight(30);
+        cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell5.setColspan(1);
+        table.addCell(cell5);
+
+        PdfPCell cell6 = new PdfPCell(new Phrase("Y"));
+        cell6.setFixedHeight(30);
+        cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell6.setColspan(1);
+        table.addCell(cell6);
+
+        PdfPCell cell7 = new PdfPCell(new Phrase("N"));
+        cell7.setFixedHeight(30);
+        cell7.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell7.setColspan(1);
+        table.addCell(cell7);
+
+        PdfPCell cell8 = new PdfPCell(new Phrase("N"));
+        cell8.setFixedHeight(30);
+        cell8.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell8.setColspan(1);
+        table.addCell(cell8);
+
+
+
+        document.add(table);
+
+
         document.close();
 
     }
