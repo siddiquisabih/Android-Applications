@@ -1,4 +1,7 @@
 package com.example.user.risk;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,13 +32,19 @@ import android.widget.TextView;
 import java.util.Calendar;
 import android.widget.DatePicker;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfName;
+import com.itextpdf.text.pdf.PdfNumber;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPage;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Document;
 
@@ -286,10 +296,18 @@ public class MainActivity extends AppCompatActivity {
         Rectangle pagesize = new Rectangle(216f, 720f);
 
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf") );
+
+        PdfWriter writer =  PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf"));
+        //Rotate event = new Rotate();
+        //writer.setPageEvent(event);
+
         document.open();
+
+
         document.add(new Paragraph("Hello World! Hello People! " +
                 "Hello Sky! Hello Sun! Hello Moon! Hello Stars!"));
+
+
 
         PdfPTable table = new PdfPTable(4);
         //table.setTotalWidth(new float[]{ 160, 120 });
@@ -298,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
         PdfPCell cell = new PdfPCell(new Phrase("Hazards Involved(HI)"));
         cell.setFixedHeight(30);
         //cell.setBorder(Rectangle.NO_BORDER);
+        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setColspan(4);
         table.addCell(cell);
@@ -360,6 +379,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public class Rotate extends PdfPageEventHelper {
+
+        protected PdfNumber orientation = PdfPage.LANDSCAPE;
+
+        public void setOrientation(PdfNumber orientation) {
+            this.orientation = orientation;
+        }
+
+        @Override
+        public void onStartPage(PdfWriter writer, Document document) {
+            writer.addPageDictEntry(PdfName.ROTATE, orientation);
+        }
+    }
 
 
 
