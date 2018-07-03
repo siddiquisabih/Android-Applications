@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -349,6 +350,20 @@ public class MainActivity extends AppCompatActivity {
                 PdfPCell e = new PdfPCell(new Phrase("Hira Date: " + date));
                 PdfPCell f = new PdfPCell(new Phrase(""));
 
+
+
+                ba.setBorder(Rectangle.NO_BORDER);
+                b.setBorder(Rectangle.NO_BORDER);
+                c.setBorder(Rectangle.NO_BORDER);
+                d.setBorder(Rectangle.NO_BORDER);
+                e.setBorder(Rectangle.NO_BORDER);
+                f.setBorder(Rectangle.NO_BORDER);
+
+
+                d.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                b.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+
                 topTable.addCell(ba);
                 topTable.addCell(b);
                 topTable.addCell(c);
@@ -356,12 +371,12 @@ public class MainActivity extends AppCompatActivity {
                 topTable.addCell(e);
                 topTable.addCell(f);
 
-                ba.setBorder(0);
-                b.setBorder(0);
-                c.setBorder(0);
-                d.setBorder(0);
-                e.setBorder(0);
-                f.setBorder(0);
+//                ba.setBorder(0);
+//                b.setBorder(0);
+//                c.setBorder(0);
+//                d.setBorder(0);
+//                e.setBorder(0);
+//                f.setBorder(0);
 
 
                 document.add(topTable);
@@ -420,7 +435,8 @@ public class MainActivity extends AppCompatActivity {
                 //image.setAbsolutePosition(250f, 10f);
                 image.scalePercent(30f);
                 image.setAlignment(Element.ALIGN_RIGHT);
-                document.add(image);
+                //document.add(image);
+                document.add(new Phrase("\n"));
             }
             catch(IOException ex)
             {
@@ -517,6 +533,19 @@ public class MainActivity extends AppCompatActivity {
 
                 table1.getDefaultCell().setBorder(0);
                 document.add(table1);
+
+
+                Paragraph Note1 = new Paragraph("1 Note: Please identify the type of Hazard involved in HI column i.e Ph, Ch, B & E against each OH&S Hazard.");
+                Paragraph Note2 = new Paragraph("2 Note: Please specify the impact of Hazard in term of injury/Disease or Major/Minor loss in Asserts in impact column, if required");
+
+
+                document.add(Note1);
+                document.add(Note2);
+
+
+
+
+
 
             } catch (DocumentException e) {
                 e.printStackTrace();
