@@ -76,12 +76,26 @@ public class MainActivity extends AppCompatActivity {
     String [] severity = {"Very High" , "High" , "Medium" , "Low"};
     String [] probability = {"Extremely High","Often Likely","Likely","Unlikely","Extremely Unlikely"};
 
+
     String path = Environment.getExternalStorageDirectory().getAbsolutePath() + '/' + 'a' ;
     File dir;
 
     Button getResuntBtn;
 
     boolean isBilogical,isChemical,isErgo,isPhy = false;
+
+   boolean isBaseVeryHigh , isBaseHigh , isBaseMedium, isBaseLow = false;
+
+   boolean isBaseProbExtremHigh , isBaseProbOftenLikely , isBaseProbLikely, isBaseProbUnlikely , isBaseProbExtremUnlikely = false;
+
+
+
+
+    boolean isActualVeryHigh , isActualHigh , isActualMedium, isActualLow = false;
+
+    boolean isActualProbExtremHigh , isActualProbOftenLikely , isActualProbLikely, isActualProbUnlikely , isActualProbExtremUnlikely = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),hazard[i] , Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),hazard[i] , Toast.LENGTH_LONG).show();
 
                 isBilogical=false;
                 isChemical=false;
@@ -176,11 +190,46 @@ public class MainActivity extends AppCompatActivity {
     public void setBaseSeverity(){
 
 
-        Spinner spin = findViewById(R.id.base_severity);
+        final Spinner spin = findViewById(R.id.base_severity);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
+
+                isBaseVeryHigh=false;
+                isBaseHigh=false;
+                isBaseMedium=false;
+                isBaseLow=false;
+
+
+                if(spin.getSelectedItem().toString().trim() == "Very High"){
+                    isBaseVeryHigh = true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "High"){
+                    isBaseHigh = true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "Medium"){
+                    isBaseMedium = true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "Low"){
+                    isBaseLow = true;
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
 
             //Aye waie...
@@ -196,11 +245,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setBaseProbability(){
-        Spinner spin = findViewById(R.id.base_prob);
+        final Spinner spin = findViewById(R.id.base_prob);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
+
+                isBaseProbExtremHigh=false;
+                isBaseProbOftenLikely=false;
+                isBaseProbLikely=false;
+                isBaseProbUnlikely=false;
+                isBaseProbExtremUnlikely = false;
+
+
+
+                if(spin.getSelectedItem().toString().trim() == "Extremely High"){
+                    isBaseProbExtremHigh = true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Often Likely"){
+                    isBaseProbOftenLikely = true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Likely"){
+                    isBaseProbLikely = true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Unlikely"){
+                    isBaseProbUnlikely = true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Extremely Unlikely"){
+                    isBaseProbExtremUnlikely = true;
+                }
+
+
+
+
+
+
+
             }
 
             //Aye waie...
@@ -220,11 +300,48 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setActualSeverity(){
-        Spinner spin = findViewById(R.id.actual_severity);
+        final Spinner spin = findViewById(R.id.actual_severity);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),severity[i] , Toast.LENGTH_LONG).show();
+
+
+
+//                String [] severity = {"Very High" , "High" , "Medium" , "Low"};
+
+                isActualVeryHigh= false;
+                isActualHigh= false;
+                isActualMedium= false;
+                isActualLow = false;
+
+
+
+
+                if(spin.getSelectedItem().toString().trim() == "Very High"){
+                    isActualVeryHigh= true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "High"){
+                    isActualHigh= true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "Medium"){
+                    isActualMedium = true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "Low"){
+                    isActualLow = true;
+                }
+
+
+
+
+
+
+
+
+
             }
 
             //Aye waie...
@@ -240,30 +357,62 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setActualProbability(){
-    Spinner spin = findViewById(R.id.actual_prob);
-    spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
-        }
+        final Spinner spin = findViewById(R.id.actual_prob);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getApplicationContext(),probability[i] , Toast.LENGTH_LONG).show();
 
-        //Aye waie...
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {}
-    });
+                isActualProbExtremHigh=false;
+                isActualProbOftenLikely=false;
+                isActualProbLikely=false;
+                isActualProbUnlikely=false;
+                isActualProbExtremUnlikely = false;
 
-    ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,probability);
 
-    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    spin.setAdapter(aa);
 
-    getResuntBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            generatePDF();
-        }
-    });
-}
+
+                if(spin.getSelectedItem().toString().trim() == "Extremely High"){
+                    isActualProbExtremHigh = true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Often Likely"){
+                    isActualProbOftenLikely= true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Likely"){
+                    isActualProbLikely = true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Unlikely"){
+                    isActualProbUnlikely= true;
+                }
+                if(spin.getSelectedItem().toString().trim() == "Extremely Unlikely"){
+                    isActualProbExtremUnlikely = true;
+                }
+
+
+
+
+
+
+
+            }
+
+            //Aye waie...
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,probability);
+
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(aa);
+
+        getResuntBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                generatePDF();
+            }
+        });
+    }
 
 
     private void generatePDF(){
@@ -280,6 +429,14 @@ public class MainActivity extends AppCompatActivity {
             // here we get participants names and converted into "String" in second line
             TextView allMemberName = (TextView) findViewById(R.id.namesOfParticipants);
             String Names = allMemberName.getText().toString();
+
+
+
+            TextView descriptionRisk = (TextView) findViewById(R.id.descriptionRisk);
+            String description = descriptionRisk.getText().toString();
+
+
+
 
 
             // here we get Approver name
@@ -305,7 +462,7 @@ public class MainActivity extends AppCompatActivity {
 
             Spinner spin = findViewById(R.id.sp_picker);
             String text = spin.getSelectedItem().toString();
-            Toast.makeText(getApplicationContext(),text , Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(),text , Toast.LENGTH_LONG).show();
 //        spin.setVisibility(View.GONE);
 
             // here we get date
@@ -329,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
             Rectangle two = new Rectangle(650,1000);
             document.setPageSize(two);
             try {
-                PdfWriter writer =  PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf"));
+                PdfWriter writer =  PdfWriter.getInstance(document, new FileOutputStream(dir + "/"+ assessment + ".pdf"));
             } catch (DocumentException e) {
                 e.printStackTrace();
             } catch (FileNotFoundException e) {
@@ -374,52 +531,9 @@ public class MainActivity extends AppCompatActivity {
                 topTable.addCell(e);
                 topTable.addCell(f);
 
-//                ba.setBorder(0);
-//                b.setBorder(0);
-//                c.setBorder(0);
-//                d.setBorder(0);
-//                e.setBorder(0);
-//                f.setBorder(0);
 
 
                 document.add(topTable);
-
-                /*//paragraph
-                Paragraph activityText = new Paragraph("Activity: " + activityName);
-                activityText.setAlignment(Element.ALIGN_LEFT);
-
-                Paragraph NameOfMember = new Paragraph("Participant: " + Names);
-                NameOfMember.setAlignment(Element.ALIGN_RIGHT);
-
-                Paragraph DepartAreaName = new Paragraph("Depart/Area of Assessment: " + assessment);
-                DepartAreaName.setAlignment(Element.ALIGN_LEFT);
-
-                Paragraph ApprovedBy = new Paragraph("Approved By: " + approverName);
-                ApprovedBy.setAlignment(Element.ALIGN_RIGHT);
-
-                Paragraph HiraDate = new Paragraph("Hira Date: " + date);
-                HiraDate.setAlignment(Element.ALIGN_LEFT);
-
-
-                document.add(activityText);
-                document.add(NameOfMember);
-                document.add(DepartAreaName);
-                document.add(ApprovedBy);
-                document.add(HiraDate);*/
-
-
-
-
-
-
-
-
- 
-
-
-//                document.add(p1);
-//                document.add(p2);
-
 
 
             } catch (DocumentException e) {
@@ -553,7 +667,7 @@ public class MainActivity extends AppCompatActivity {
 
                 PdfPTable lastTableParent = new PdfPTable(15);
 
-                PdfPCell OS = new PdfPCell(new Phrase("OS ABC"));
+                PdfPCell OS = new PdfPCell(new Phrase("OH Hazard"));
                 OS.setColspan(2);
                 OS.setHorizontalAlignment(Element.ALIGN_CENTER);
                 OS.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
@@ -575,7 +689,7 @@ public class MainActivity extends AppCompatActivity {
                 PdfPCell ACTUAL = new PdfPCell(new Phrase("ACTUAL RISK"));
                 ACTUAL.setColspan(2);
                 ACTUAL.setHorizontalAlignment(Element.ALIGN_CENTER);
-                PdfPCell FurtherControlMeanuse = new PdfPCell(new Phrase("Further Control Meanuse"));
+                PdfPCell FurtherControlMeanuse = new PdfPCell(new Phrase("Further Control Measure"));
                 FurtherControlMeanuse.setColspan(2);
                 FurtherControlMeanuse.setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -592,7 +706,7 @@ public class MainActivity extends AppCompatActivity {
                 PdfPCell baseRisk = new PdfPCell(new Phrase("Base Risk"));
                 baseRisk.setColspan(3);
                 baseRisk.setHorizontalAlignment(Element.ALIGN_CENTER);
-                PdfPCell Sey = new PdfPCell(new Phrase("Sey"));
+                PdfPCell Sey = new PdfPCell(new Phrase("Sev"));
                 Sey.setColspan(1);
                 Sey.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell Prob = new PdfPCell(new Phrase("Prob"));
@@ -624,7 +738,7 @@ public class MainActivity extends AppCompatActivity {
                 PdfPCell baseRisk1 = new PdfPCell(new Phrase("Base Risk"));
                 baseRisk1.setColspan(3);
                 baseRisk1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                PdfPCell Sey1 = new PdfPCell(new Phrase("Sey"));
+                PdfPCell Sey1 = new PdfPCell(new Phrase("Sev"));
                 Sey1.setColspan(1);
                 Sey1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell Prob1 = new PdfPCell(new Phrase("Prob"));
@@ -655,111 +769,126 @@ public class MainActivity extends AppCompatActivity {
                 pCell.setColspan(1);
                 TableParent.addCell(pCell);
 
+
+
+
+                //data entry start
+
                 //for(int a=0;a<10;a++){
 
-                    PdfPTable lastTableParent1 = new PdfPTable(15);
+                PdfPTable lastTableParent1 = new PdfPTable(15);
 
-                    PdfPCell OS1 = new PdfPCell(new Phrase("OS ABC"));
-                    OS1.setColspan(2);
-                    OS1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    OS1.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
-                    //OS.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                    PdfPCell HI1 = new PdfPCell(new Phrase("HI"));
-                    HI1.setColspan(1);
-                    //HI.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                    HI1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    HI1.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
-                    PdfPCell IMPACT1 = new PdfPCell(new Phrase("IMPACT"));
-                    IMPACT1.setColspan(2);
-                    IMPACT1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell BASE1 = new PdfPCell(new Phrase("BASE RISK"));
-                    BASE1.setColspan(2);
-                    BASE1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell EXISTING1 = new PdfPCell(new Phrase("EXISTING CONTROL"));
-                    EXISTING1.setColspan(2);
-                    EXISTING1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell ACTUAL1 = new PdfPCell(new Phrase("ACTUAL RISK"));
-                    ACTUAL1.setColspan(2);
-                    ACTUAL1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell FurtherControlMeanuse1 = new PdfPCell(new Phrase("Further Control Meanuse"));
-                    FurtherControlMeanuse1.setColspan(2);
-                    FurtherControlMeanuse1.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-
-                    lastTableParent1.addCell(OS1);
-                    lastTableParent1.addCell(HI1);
-                    lastTableParent1.addCell(IMPACT1);
-                    //lastTableParent.addCell(BASE);
+                PdfPCell OS1 = new PdfPCell(new Phrase(description));
+                OS1.setColspan(2);
+                OS1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                OS1.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+                //OS.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                PdfPCell HI1 = new PdfPCell(new Phrase((isBilogical)?"(B)": (isChemical)? "(Ch)": (isPhy)? "(Ph)": (isErgo)?"(E)":""));
+                HI1.setColspan(1);
+                //HI.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                HI1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                HI1.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell IMPACT1 = new PdfPCell(new Phrase(riskImpact));
+                IMPACT1.setColspan(2);
+                IMPACT1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell BASE1 = new PdfPCell(new Phrase("BASE RISK"));     // isko dekhna hai bad mai
+                BASE1.setColspan(2);
+                BASE1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell EXISTING1 = new PdfPCell(new Phrase(existingControl));
+                EXISTING1.setColspan(2);
+                EXISTING1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell ACTUAL1 = new PdfPCell(new Phrase("ACTUAL RISK"));
+                ACTUAL1.setColspan(2);
+                ACTUAL1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell FurtherControlMeanuse1 = new PdfPCell(new Phrase(furtherControl));
+                FurtherControlMeanuse1.setColspan(2);
+                FurtherControlMeanuse1.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 
-
-                    PdfPTable BASETable1 = new PdfPTable(3);
-                    BASETable1.setWidthPercentage(100);
-                    PdfPCell baseRisk2 = new PdfPCell(new Phrase("Base Risk"));
-                    baseRisk2.setColspan(3);
-                    baseRisk2.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell Sey2 = new PdfPCell(new Phrase("Sey"));
-                    Sey2.setColspan(1);
-                    Sey2.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell Prob2 = new PdfPCell(new Phrase("Prob"));
-                    Prob2.setColspan(1);
-                    Prob2.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell RR2 = new PdfPCell(new Phrase("RR"));
-                    RR2.setColspan(1);
-                    RR2.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-                    BASETable1.addCell(baseRisk2);
-                    BASETable1.addCell(Sey2);
-                    BASETable1.addCell(Prob2);
-                    BASETable1.addCell(RR2);
+                lastTableParent1.addCell(OS1);
+                lastTableParent1.addCell(HI1);
+                lastTableParent1.addCell(IMPACT1);
+                //lastTableParent.addCell(BASE);
 
 
-                    PdfPCell y12 = new PdfPCell();
-                    y12.addElement(BASETable1);
-                    y12.setColspan(3);
-                    y12.setPadding(0);
-                    //y1.setBorder(Rectangle.NO_BORDER);
 
-                    lastTableParent1.addCell(y12);
-                    lastTableParent1.addCell(EXISTING1);
+                PdfPTable BASETable1 = new PdfPTable(3);
+                BASETable1.setWidthPercentage(100);
+//                PdfPCell baseRisk2 = new PdfPCell(new Phrase("Base Risk"));
+//                baseRisk2.setColspan(3);
+//                baseRisk2.setHorizontalAlignment(Element.ALIGN_CENTER);   //yac
+                PdfPCell Sey2 = new PdfPCell(new Phrase(
+                        (isBaseVeryHigh)? "(I)": (isBaseHigh)? "(II)": (isBaseMedium)? "(III)" : (isBaseLow)? "(IV)" : ""
+                ));
+                Sey2.setColspan(1);
+                Sey2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell Prob2 = new PdfPCell(new Phrase(
+                        (isBaseProbExtremHigh)?"(A)":(isBaseProbOftenLikely) ? "(B)": (isBaseProbLikely) ? "(C)": (isBaseProbUnlikely)? "(D)": (isBaseProbExtremUnlikely)? "(E)": ""
+                ));
+                Prob2.setColspan(1);
+                Prob2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell RR2 = new PdfPCell(new Phrase("RR"));
+                RR2.setColspan(1);
+                RR2.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-
-                    PdfPTable ActualTable1 = new PdfPTable(3);
-                    ActualTable1.setWidthPercentage(100);
-
-                    PdfPCell baseRisk4 = new PdfPCell(new Phrase("Base Risk"));
-                    baseRisk4.setColspan(3);
-                    baseRisk4.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell Sey4 = new PdfPCell(new Phrase("Sey"));
-                    Sey4.setColspan(1);
-                    Sey4.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell Prob4 = new PdfPCell(new Phrase("Prob"));
-                    Prob4.setColspan(1);
-                    Prob1.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    PdfPCell RR4 = new PdfPCell(new Phrase("RR"));
-                    RR4.setColspan(1);
-                    RR4.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-                    ActualTable1.addCell(baseRisk4);
-                    ActualTable1.addCell(Sey4);
-                    ActualTable1.addCell(Prob4);
-                    ActualTable1.addCell(RR4);
+//                BASETable1.addCell(baseRisk2);
+                BASETable1.addCell(Sey2);
+                BASETable1.addCell(Prob2);
+                BASETable1.addCell(RR2);
 
 
-                    PdfPCell y15 = new PdfPCell();
-                    y15.addElement(ActualTable1);
-                    y15.setColspan(3);
-                    y15.setPadding(0);
+                PdfPCell y12 = new PdfPCell();
+                y12.addElement(BASETable1);
+                y12.setColspan(3);
+                y12.setPadding(0);
+                //y1.setBorder(Rectangle.NO_BORDER);
 
-                    lastTableParent1.addCell(y15);
-                    lastTableParent1.addCell(FurtherControlMeanuse1);
+                lastTableParent1.addCell(y12);
+                lastTableParent1.addCell(EXISTING1);
 
-                    lastTableParent1.setWidthPercentage(100);
 
-                    PdfPCell pCel5 = new PdfPCell(lastTableParent1);
-                    pCel5.setBorder(Rectangle.NO_BORDER);
-                    pCel5.setColspan(1);
-                    TableParent.addCell(pCel5);
+                PdfPTable ActualTable1 = new PdfPTable(3);
+                ActualTable1.setWidthPercentage(100);
+
+//                PdfPCell baseRisk4 = new PdfPCell(new Phrase("Actual Risk"));
+//                baseRisk4.setColspan(3);
+//                baseRisk4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell Sey4 = new PdfPCell(new Phrase(
+
+                (isActualVeryHigh)? "(I)": (isActualHigh)? "(II)": (isActualMedium)? "(III)" : (isActualLow)? "(IV)" : ""
+
+                ));
+                Sey4.setColspan(1);
+                Sey4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell Prob4 = new PdfPCell(new Phrase(
+                (isActualProbExtremHigh)?"(A)":(isActualProbOftenLikely) ? "(B)": (isActualProbLikely) ? "(C)": (isActualProbUnlikely)? "(D)": (isActualProbExtremUnlikely )? "(E)": ""
+               ));
+                Prob4.setColspan(1);
+                Prob1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell RR4 = new PdfPCell(new Phrase("RR"));
+                RR4.setColspan(1);
+                RR4.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+//                ActualTable1.addCell(baseRisk4);
+                ActualTable1.addCell(Sey4);
+                ActualTable1.addCell(Prob4);
+                ActualTable1.addCell(RR4);
+
+
+                PdfPCell y15 = new PdfPCell();
+                y15.addElement(ActualTable1);
+                y15.setColspan(3);
+                y15.setPadding(0);
+
+                lastTableParent1.addCell(y15);
+                lastTableParent1.addCell(FurtherControlMeanuse1);
+
+                lastTableParent1.setWidthPercentage(100);
+
+                PdfPCell pCel5 = new PdfPCell(lastTableParent1);
+                pCel5.setBorder(Rectangle.NO_BORDER);
+                pCel5.setColspan(1);
+                TableParent.addCell(pCel5);
                 //}
                 document.add(TableParent);
 
