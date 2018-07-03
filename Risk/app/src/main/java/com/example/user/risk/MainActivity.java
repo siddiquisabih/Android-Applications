@@ -32,10 +32,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.security.Permission;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.widget.TextView;
@@ -43,9 +45,12 @@ import android.widget.TextView;
 import java.util.Calendar;
 import android.widget.DatePicker;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.ElementListener;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button getResuntBtn;
 
+    boolean isBilogical,isChemical,isErgo,isPhy = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +120,33 @@ public class MainActivity extends AppCompatActivity {
 
         //Spinner Code Start
 
-        Spinner spin = findViewById(R.id.sp_picker);
+        final Spinner spin = findViewById(R.id.sp_picker);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getApplicationContext(),hazard[i] , Toast.LENGTH_LONG).show();
+
+                isBilogical=false;
+                isChemical=false;
+                isErgo=false ;
+                isPhy = false;
+                if(spin.getSelectedItem().toString().trim() == "Biological"){
+                    isBilogical = true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "Chemical"){
+                    isChemical = true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "Ergonomical"){
+                    isErgo = true;
+                }
+
+                if(spin.getSelectedItem().toString().trim() == "Physical"){
+                    isPhy = true;
+                }
+
+
             }
 
             //Aye waie...
@@ -305,16 +333,84 @@ public class MainActivity extends AppCompatActivity {
 
 
             try {
-                document.add(new Paragraph("Hello World! Hello People! " +
-                        "Hello Sky! Hello Sun! Hello Moon! Hello Stars!"));
+
+
+
+                PdfPTable topTable = new PdfPTable(2);
+                topTable.getDefaultCell().setBorder(0);
+                PdfPCell ba = new PdfPCell(new Phrase("Activity: " + activityName));
+                PdfPCell b = new PdfPCell(new Phrase("Participant: " + Names));
+                PdfPCell c = new PdfPCell(new Phrase("Depart/Area of Assessment: " + assessment));
+                PdfPCell d = new PdfPCell(new Phrase("Approved By: " + approverName));
+                PdfPCell e = new PdfPCell(new Phrase("Hira Date: " + date));
+                PdfPCell f = new PdfPCell(new Phrase(""));
+
+                topTable.addCell(ba);
+                topTable.addCell(b);
+                topTable.addCell(c);
+                topTable.addCell(d);
+                topTable.addCell(e);
+                topTable.addCell(f);
+
+                ba.setBorder(0);
+                b.setBorder(0);
+                c.setBorder(0);
+                d.setBorder(0);
+                e.setBorder(0);
+                f.setBorder(0);
+
+
+                document.add(topTable);
+
+                /*//paragraph
+                Paragraph activityText = new Paragraph("Activity: " + activityName);
+                activityText.setAlignment(Element.ALIGN_LEFT);
+
+                Paragraph NameOfMember = new Paragraph("Participant: " + Names);
+                NameOfMember.setAlignment(Element.ALIGN_RIGHT);
+
+                Paragraph DepartAreaName = new Paragraph("Depart/Area of Assessment: " + assessment);
+                DepartAreaName.setAlignment(Element.ALIGN_LEFT);
+
+                Paragraph ApprovedBy = new Paragraph("Approved By: " + approverName);
+                ApprovedBy.setAlignment(Element.ALIGN_RIGHT);
+
+                Paragraph HiraDate = new Paragraph("Hira Date: " + date);
+                HiraDate.setAlignment(Element.ALIGN_LEFT);
+
+
+                document.add(activityText);
+                document.add(NameOfMember);
+                document.add(DepartAreaName);
+                document.add(ApprovedBy);
+                document.add(HiraDate);*/
+
+
+
+
+
+
+
+
+ 
+
+
+//                document.add(p1);
+//                document.add(p2);
+
+
+
             } catch (DocumentException e) {
                 e.printStackTrace();
             }
 
 
+
+
             PdfPTable table = new PdfPTable(4);
             //table.setTotalWidth(new float[]{ 160, 120 });
             //table.setLockedWidth(true);
+
 
             PdfPCell cell = new PdfPCell(new Phrase("Hazards Involved(HI)"));
             cell.setFixedHeight(30);
@@ -331,7 +427,7 @@ public class MainActivity extends AppCompatActivity {
             cell1.setColspan(1);
             table.addCell(cell1);
 
-            PdfPCell cell2 = new PdfPCell(new Phrase("Physical  "));
+            PdfPCell cell2 = new PdfPCell(new Phrase("Physical (Ph)"));
             cell2.setFixedHeight(30);
             cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell2.setColspan(1);
@@ -349,25 +445,25 @@ public class MainActivity extends AppCompatActivity {
             cell4.setColspan(1);
             table.addCell(cell4);
 
-            PdfPCell cell5 = new PdfPCell(new Phrase("Y"));
+            PdfPCell cell5 = new PdfPCell(new Phrase(((isErgo)?"Y":"N")));
             cell5.setFixedHeight(30);
             cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell5.setColspan(1);
             table.addCell(cell5);
 
-            PdfPCell cell6 = new PdfPCell(new Phrase("Y"));
+            PdfPCell cell6 = new PdfPCell( new Phrase(((isPhy)?"Y":"N")));
             cell6.setFixedHeight(30);
             cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell6.setColspan(1);
             table.addCell(cell6);
 
-            PdfPCell cell7 = new PdfPCell(new Phrase("N"));
+            PdfPCell cell7 = new PdfPCell(new Phrase(((isChemical)?"Y":"N")));
             cell7.setFixedHeight(30);
             cell7.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell7.setColspan(1);
             table.addCell(cell7);
 
-            PdfPCell cell8 = new PdfPCell(new Phrase("N"));
+            PdfPCell cell8 = new PdfPCell(new Phrase(((isBilogical)?"Y":"N")));
             cell8.setFixedHeight(30);
             cell8.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell8.setColspan(1);
