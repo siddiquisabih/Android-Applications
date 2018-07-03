@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:text="Yasir Ahmed Khan"
             />
 
 
@@ -51,7 +52,8 @@
                 android:hint="Enter Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"    />
+                android:layout_marginBottom="12dp"
+                android:text="Yasir Ahmed Khan"/>
 
 
             <TextView
@@ -64,7 +66,8 @@
                 android:hint="Enter Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="12dp"
+                android:text="Yasir Ahmed Khan"/>
 
 
 
@@ -75,12 +78,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="Area Of Assessment"
+
                 android:textColor="#0000FF"/>
             <EditText
                 android:id="@+id/assessment"
                 android:hint="Enter Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Yasir Ahmed Khan"
                 android:layout_marginBottom="12dp"/>
 
 

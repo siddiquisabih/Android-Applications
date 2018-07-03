@@ -325,7 +325,9 @@ public class MainActivity extends AppCompatActivity {
             String furtherControl= fcontrol.getText().toString();
 
             Document document = new Document();
-
+            document.setMargins(4, 4, 4, 4);
+            Rectangle two = new Rectangle(650,1000);
+            document.setPageSize(two);
             try {
                 PdfWriter writer =  PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf"));
             } catch (DocumentException e) {
@@ -343,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
 
                 PdfPTable topTable = new PdfPTable(2);
                 topTable.getDefaultCell().setBorder(0);
+                topTable.setWidthPercentage(100);
                 PdfPCell ba = new PdfPCell(new Phrase("Activity: " + activityName));
                 PdfPCell b = new PdfPCell(new Phrase("Participant: " + Names));
                 PdfPCell c = new PdfPCell(new Phrase("Depart/Area of Assessment: " + assessment));
@@ -542,9 +545,223 @@ public class MainActivity extends AppCompatActivity {
                 document.add(Note1);
                 document.add(Note2);
 
+                /*Last Table goes here*/
+
+
+                PdfPTable TableParent = new PdfPTable(1);
+                TableParent.setWidthPercentage(100);
+
+                PdfPTable lastTableParent = new PdfPTable(15);
+
+                PdfPCell OS = new PdfPCell(new Phrase("OS ABC"));
+                OS.setColspan(2);
+                OS.setHorizontalAlignment(Element.ALIGN_CENTER);
+                OS.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+                OS.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                PdfPCell HI = new PdfPCell(new Phrase("HI"));
+                HI.setColspan(1);
+                HI.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                HI.setHorizontalAlignment(Element.ALIGN_CENTER);
+                HI.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell IMPACT = new PdfPCell(new Phrase("IMPACT"));
+                IMPACT.setColspan(2);
+                IMPACT.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell BASE = new PdfPCell(new Phrase("BASE RISK"));
+                BASE.setColspan(2);
+                BASE.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell EXISTING = new PdfPCell(new Phrase("EXISTING CONTROL"));
+                EXISTING.setColspan(2);
+                EXISTING.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell ACTUAL = new PdfPCell(new Phrase("ACTUAL RISK"));
+                ACTUAL.setColspan(2);
+                ACTUAL.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell FurtherControlMeanuse = new PdfPCell(new Phrase("Further Control Meanuse"));
+                FurtherControlMeanuse.setColspan(2);
+                FurtherControlMeanuse.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+
+                lastTableParent.addCell(OS);
+                lastTableParent.addCell(HI);
+                lastTableParent.addCell(IMPACT);
+                //lastTableParent.addCell(BASE);
 
 
 
+                PdfPTable BASETable = new PdfPTable(3);
+                BASETable.setWidthPercentage(100);
+                PdfPCell baseRisk = new PdfPCell(new Phrase("Base Risk"));
+                baseRisk.setColspan(3);
+                baseRisk.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell Sey = new PdfPCell(new Phrase("Sey"));
+                Sey.setColspan(1);
+                Sey.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell Prob = new PdfPCell(new Phrase("Prob"));
+                Prob.setColspan(1);
+                Prob.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell RR = new PdfPCell(new Phrase("RR"));
+                RR.setColspan(1);
+                RR.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                BASETable.addCell(baseRisk);
+                BASETable.addCell(Sey);
+                BASETable.addCell(Prob);
+                BASETable.addCell(RR);
+
+
+                PdfPCell y1 = new PdfPCell();
+                y1.addElement(BASETable);
+                y1.setColspan(3);
+                y1.setPadding(0);
+                //y1.setBorder(Rectangle.NO_BORDER);
+
+                lastTableParent.addCell(y1);
+                lastTableParent.addCell(EXISTING);
+
+
+                PdfPTable ActualTable = new PdfPTable(3);
+                ActualTable.setWidthPercentage(100);
+
+                PdfPCell baseRisk1 = new PdfPCell(new Phrase("Base Risk"));
+                baseRisk1.setColspan(3);
+                baseRisk1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell Sey1 = new PdfPCell(new Phrase("Sey"));
+                Sey1.setColspan(1);
+                Sey1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell Prob1 = new PdfPCell(new Phrase("Prob"));
+                Prob1.setColspan(1);
+                Prob1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                PdfPCell RR1 = new PdfPCell(new Phrase("RR"));
+                RR1.setColspan(1);
+                RR1.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                ActualTable.addCell(baseRisk1);
+                ActualTable.addCell(Sey1);
+                ActualTable.addCell(Prob1);
+                ActualTable.addCell(RR1);
+
+
+                PdfPCell y11 = new PdfPCell();
+                y11.addElement(ActualTable);
+                y11.setColspan(3);
+                y11.setPadding(0);
+
+                lastTableParent.addCell(y11);
+                lastTableParent.addCell(FurtherControlMeanuse);
+
+                lastTableParent.setWidthPercentage(100);
+
+                PdfPCell pCell = new PdfPCell(lastTableParent);
+                pCell.setBorder(Rectangle.NO_BORDER);
+                pCell.setColspan(1);
+                TableParent.addCell(pCell);
+
+                //for(int a=0;a<10;a++){
+
+                    PdfPTable lastTableParent1 = new PdfPTable(15);
+
+                    PdfPCell OS1 = new PdfPCell(new Phrase("OS ABC"));
+                    OS1.setColspan(2);
+                    OS1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    OS1.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+                    //OS.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                    PdfPCell HI1 = new PdfPCell(new Phrase("HI"));
+                    HI1.setColspan(1);
+                    //HI.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                    HI1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    HI1.setVerticalAlignment(Element.ALIGN_JUSTIFIED);
+                    PdfPCell IMPACT1 = new PdfPCell(new Phrase("IMPACT"));
+                    IMPACT1.setColspan(2);
+                    IMPACT1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell BASE1 = new PdfPCell(new Phrase("BASE RISK"));
+                    BASE1.setColspan(2);
+                    BASE1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell EXISTING1 = new PdfPCell(new Phrase("EXISTING CONTROL"));
+                    EXISTING1.setColspan(2);
+                    EXISTING1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell ACTUAL1 = new PdfPCell(new Phrase("ACTUAL RISK"));
+                    ACTUAL1.setColspan(2);
+                    ACTUAL1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell FurtherControlMeanuse1 = new PdfPCell(new Phrase("Further Control Meanuse"));
+                    FurtherControlMeanuse1.setColspan(2);
+                    FurtherControlMeanuse1.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+
+                    lastTableParent1.addCell(OS1);
+                    lastTableParent1.addCell(HI1);
+                    lastTableParent1.addCell(IMPACT1);
+                    //lastTableParent.addCell(BASE);
+
+
+
+                    PdfPTable BASETable1 = new PdfPTable(3);
+                    BASETable1.setWidthPercentage(100);
+                    PdfPCell baseRisk2 = new PdfPCell(new Phrase("Base Risk"));
+                    baseRisk2.setColspan(3);
+                    baseRisk2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell Sey2 = new PdfPCell(new Phrase("Sey"));
+                    Sey2.setColspan(1);
+                    Sey2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell Prob2 = new PdfPCell(new Phrase("Prob"));
+                    Prob2.setColspan(1);
+                    Prob2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell RR2 = new PdfPCell(new Phrase("RR"));
+                    RR2.setColspan(1);
+                    RR2.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                    BASETable1.addCell(baseRisk2);
+                    BASETable1.addCell(Sey2);
+                    BASETable1.addCell(Prob2);
+                    BASETable1.addCell(RR2);
+
+
+                    PdfPCell y12 = new PdfPCell();
+                    y12.addElement(BASETable1);
+                    y12.setColspan(3);
+                    y12.setPadding(0);
+                    //y1.setBorder(Rectangle.NO_BORDER);
+
+                    lastTableParent1.addCell(y12);
+                    lastTableParent1.addCell(EXISTING1);
+
+
+                    PdfPTable ActualTable1 = new PdfPTable(3);
+                    ActualTable1.setWidthPercentage(100);
+
+                    PdfPCell baseRisk4 = new PdfPCell(new Phrase("Base Risk"));
+                    baseRisk4.setColspan(3);
+                    baseRisk4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell Sey4 = new PdfPCell(new Phrase("Sey"));
+                    Sey4.setColspan(1);
+                    Sey4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell Prob4 = new PdfPCell(new Phrase("Prob"));
+                    Prob4.setColspan(1);
+                    Prob1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell RR4 = new PdfPCell(new Phrase("RR"));
+                    RR4.setColspan(1);
+                    RR4.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                    ActualTable1.addCell(baseRisk4);
+                    ActualTable1.addCell(Sey4);
+                    ActualTable1.addCell(Prob4);
+                    ActualTable1.addCell(RR4);
+
+
+                    PdfPCell y15 = new PdfPCell();
+                    y15.addElement(ActualTable1);
+                    y15.setColspan(3);
+                    y15.setPadding(0);
+
+                    lastTableParent1.addCell(y15);
+                    lastTableParent1.addCell(FurtherControlMeanuse1);
+
+                    lastTableParent1.setWidthPercentage(100);
+
+                    PdfPCell pCel5 = new PdfPCell(lastTableParent1);
+                    pCel5.setBorder(Rectangle.NO_BORDER);
+                    pCel5.setColspan(1);
+                    TableParent.addCell(pCel5);
+                //}
+                document.add(TableParent);
 
 
             } catch (DocumentException e) {
