@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     String [] severity = {"Very High" , "High" , "Medium" , "Low"};
     String [] probability = {"Extremely High","Often Likely","Likely","Unlikely","Extremely Unlikely"};
 
+    String FileNameForCreate = "";
 
     String path = Environment.getExternalStorageDirectory().getAbsolutePath() + '/' + 'a' ;
     File dir;
@@ -453,7 +454,7 @@ public class MainActivity extends AppCompatActivity {
             // here we get area of assessment
             TextView assessmentName = (TextView) findViewById(R.id.assessment);
             String assessment = assessmentName.getText().toString();
-
+            FileNameForCreate = assessment;
 
             // here we get date
             TextView datePicker = (TextView) findViewById(R.id.tv_date);
@@ -579,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
             //table.setLockedWidth(true);
 
 
-            PdfPCell cell = new PdfPCell(new Phrase("Hazards Involved(HI)"));
+            PdfPCell cell = new PdfPCell(new Phrase("Hazards Involved     (HI)"));
             cell.setFixedHeight(30);
             //cell.setBorder(Rectangle.NO_BORDER);
             cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -588,19 +589,19 @@ public class MainActivity extends AppCompatActivity {
             table.addCell(cell);
 
 
-            PdfPCell cell1 = new PdfPCell(new Phrase("Ergonomical(E)"));
+            PdfPCell cell1 = new PdfPCell(new Phrase("Ergonomical   (E)"));
             cell1.setFixedHeight(30);
             cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell1.setColspan(1);
             table.addCell(cell1);
 
-            PdfPCell cell2 = new PdfPCell(new Phrase("Physical (Ph)"));
+            PdfPCell cell2 = new PdfPCell(new Phrase("Physical       (Ph)"));
             cell2.setFixedHeight(30);
             cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell2.setColspan(1);
             table.addCell(cell2);
 
-            PdfPCell cell3 = new PdfPCell(new Phrase("Chemical(Ch)"));
+            PdfPCell cell3 = new PdfPCell(new Phrase("Chemical      (Ch)"));
             cell3.setFixedHeight(30);
             cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
             cell3.setColspan(1);
@@ -735,7 +736,7 @@ public class MainActivity extends AppCompatActivity {
                 PdfPTable ActualTable = new PdfPTable(3);
                 ActualTable.setWidthPercentage(100);
 
-                PdfPCell baseRisk1 = new PdfPCell(new Phrase("Base Risk"));
+                PdfPCell baseRisk1 = new PdfPCell(new Phrase("Actual Risk"));
                 baseRisk1.setColspan(3);
                 baseRisk1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 PdfPCell Sey1 = new PdfPCell(new Phrase("Sev"));
@@ -897,6 +898,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             document.close();
+            Toast.makeText(MainActivity.this,   FileNameForCreate  + ".pdf Created Successfully",Toast.LENGTH_LONG).show();
+
         }
     }
 
@@ -938,6 +941,8 @@ public class MainActivity extends AppCompatActivity {
 
             generatePDF();
             Log.e("PDF","GENERATED");
+
+
 
         }else{
             Toast.makeText(MainActivity.this,"Permission Denied",Toast.LENGTH_LONG).show();
