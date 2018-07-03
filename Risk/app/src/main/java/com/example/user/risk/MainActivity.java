@@ -1,8 +1,17 @@
 package com.example.user.risk;
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -13,6 +22,7 @@ import android.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.Permission;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     String path = Environment.getExternalStorageDirectory().getAbsolutePath() + '/' + 'a' ;
     File dir;
 
+    Button getResuntBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +80,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //create file directry
-        dir = new File(path);
-        dir.mkdir();
 
-
+        getResuntBtn = findViewById(R.id.getResuntBtn);
 
         //Date Picker Code start
         myCalendar = Calendar.getInstance();
@@ -216,167 +226,159 @@ public class MainActivity extends AppCompatActivity {
     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     spin.setAdapter(aa);
 
-
-
-
+    getResuntBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            generatePDF();
+        }
+    });
 }
 
 
+    private void generatePDF(){
+        if(!checkIfAlreadyhavePermissionFileWrite(MainActivity.this)){
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE}, 200);
+        }else{
+
+            // here we get participants names and converted into "String" in second line
+            TextView allMemberName = (TextView) findViewById(R.id.namesOfParticipants);
+            String Names = allMemberName.getText().toString();
+
+
+            // here we get Approver name
+            TextView approver = (TextView) findViewById(R.id.approverName);
+            String approverName = approver.getText().toString();
 
 
 
+            // here we get activity  name
+            TextView activity = (TextView) findViewById(R.id.activityName);
+            String activityName = activity.getText().toString();
 
 
-    // show some result according to his/her input
-    // when this button clicked we collect all information from user then
-    public void btn(View view) throws FileNotFoundException, DocumentException {
+            // here we get area of assessment
+            TextView assessmentName = (TextView) findViewById(R.id.assessment);
+            String assessment = assessmentName.getText().toString();
 
 
-        //save file
-//        File file = new File(path + '/abc.txt');
+            // here we get date
+            TextView datePicker = (TextView) findViewById(R.id.tv_date);
+            String date= datePicker.getText().toString();
 
 
-
-
-
-        // first we get all data from user
-        // access data by id's
-
-
-        // here we get participants names and converted into "String" in second line
-        TextView allMemberName = (TextView) findViewById(R.id.namesOfParticipants);
-        String Names = allMemberName.getText().toString();
-
-
-        // here we get Approver name
-        TextView approver = (TextView) findViewById(R.id.approverName);
-        String approverName = approver.getText().toString();
-
-
-
-        // here we get activity  name
-        TextView activity = (TextView) findViewById(R.id.activityName);
-        String activityName = activity.getText().toString();
-
-
-        // here we get area of assessment
-        TextView assessmentName = (TextView) findViewById(R.id.assessment);
-        String assessment = assessmentName.getText().toString();
-
-
-        // here we get date
-        TextView datePicker = (TextView) findViewById(R.id.tv_date);
-        String date= datePicker.getText().toString();
-
-
-        Spinner spin = findViewById(R.id.sp_picker);
+            Spinner spin = findViewById(R.id.sp_picker);
             String text = spin.getSelectedItem().toString();
-        Toast.makeText(getApplicationContext(),text , Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),text , Toast.LENGTH_LONG).show();
 //        spin.setVisibility(View.GONE);
 
+            // here we get date
+            TextView risk = (TextView) findViewById(R.id.riskImpact);
+            String riskImpact = risk.getText().toString();
 
 
 
-        // here we get date
-        TextView risk = (TextView) findViewById(R.id.riskImpact);
-        String riskImpact = risk.getText().toString();
+            //here we get existingControl text
+            TextView control = (TextView) findViewById(R.id.existingControl);
+            String existingControl= control.getText().toString();
 
 
 
-        //here we get existingControl text
-        TextView control = (TextView) findViewById(R.id.existingControl);
-        String existingControl= control.getText().toString();
+            //further control required
+            TextView fcontrol = (TextView) findViewById(R.id.furtherControl);
+            String furtherControl= fcontrol.getText().toString();
+
+            Rectangle pagesize = new Rectangle(216f, 720f);
+
+            Document document = new Document();
+
+            try {
+                PdfWriter writer =  PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf"));
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            //Rotate event = new Rotate();
+            //writer.setPageEvent(event);
+
+            document.open();
 
 
-
-        //further control required
-        TextView fcontrol = (TextView) findViewById(R.id.furtherControl);
-        String furtherControl= fcontrol.getText().toString();
-
-        Rectangle pagesize = new Rectangle(216f, 720f);
-
-        Document document = new Document();
-
-        PdfWriter writer =  PdfWriter.getInstance(document, new FileOutputStream(dir + "/abc.pdf"));
-        //Rotate event = new Rotate();
-        //writer.setPageEvent(event);
-
-        document.open();
+            try {
+                document.add(new Paragraph("Hello World! Hello People! " +
+                        "Hello Sky! Hello Sun! Hello Moon! Hello Stars!"));
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
 
 
-        document.add(new Paragraph("Hello World! Hello People! " +
-                "Hello Sky! Hello Sun! Hello Moon! Hello Stars!"));
+            PdfPTable table = new PdfPTable(4);
+            //table.setTotalWidth(new float[]{ 160, 120 });
+            //table.setLockedWidth(true);
+
+            PdfPCell cell = new PdfPCell(new Phrase("Hazards Involved(HI)"));
+            cell.setFixedHeight(30);
+            //cell.setBorder(Rectangle.NO_BORDER);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setColspan(4);
+            table.addCell(cell);
 
 
+            PdfPCell cell1 = new PdfPCell(new Phrase("Ergonomical(E)"));
+            cell1.setFixedHeight(30);
+            cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell1.setColspan(1);
+            table.addCell(cell1);
 
-        PdfPTable table = new PdfPTable(4);
-        //table.setTotalWidth(new float[]{ 160, 120 });
-        //table.setLockedWidth(true);
+            PdfPCell cell2 = new PdfPCell(new Phrase("Physical  "));
+            cell2.setFixedHeight(30);
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell2.setColspan(1);
+            table.addCell(cell2);
 
-        PdfPCell cell = new PdfPCell(new Phrase("Hazards Involved(HI)"));
-        cell.setFixedHeight(30);
-        //cell.setBorder(Rectangle.NO_BORDER);
-        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setColspan(4);
-        table.addCell(cell);
+            PdfPCell cell3 = new PdfPCell(new Phrase("Chemical(Ch)"));
+            cell3.setFixedHeight(30);
+            cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell3.setColspan(1);
+            table.addCell(cell3);
 
+            PdfPCell cell4 = new PdfPCell(new Phrase("Biological(B)"));
+            cell4.setFixedHeight(30);
+            cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell4.setColspan(1);
+            table.addCell(cell4);
 
-        PdfPCell cell1 = new PdfPCell(new Phrase("Ergonomical(E)"));
-        cell1.setFixedHeight(30);
-        cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell1.setColspan(1);
-        table.addCell(cell1);
+            PdfPCell cell5 = new PdfPCell(new Phrase("Y"));
+            cell5.setFixedHeight(30);
+            cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell5.setColspan(1);
+            table.addCell(cell5);
 
-        PdfPCell cell2 = new PdfPCell(new Phrase("Physical  "));
-        cell2.setFixedHeight(30);
-        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell2.setColspan(1);
-        table.addCell(cell2);
+            PdfPCell cell6 = new PdfPCell(new Phrase("Y"));
+            cell6.setFixedHeight(30);
+            cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell6.setColspan(1);
+            table.addCell(cell6);
 
-        PdfPCell cell3 = new PdfPCell(new Phrase("Chemical(Ch)"));
-        cell3.setFixedHeight(30);
-        cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell3.setColspan(1);
-        table.addCell(cell3);
+            PdfPCell cell7 = new PdfPCell(new Phrase("N"));
+            cell7.setFixedHeight(30);
+            cell7.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell7.setColspan(1);
+            table.addCell(cell7);
 
-        PdfPCell cell4 = new PdfPCell(new Phrase("Biological(B)"));
-        cell4.setFixedHeight(30);
-        cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell4.setColspan(1);
-        table.addCell(cell4);
-
-        PdfPCell cell5 = new PdfPCell(new Phrase("Y"));
-        cell5.setFixedHeight(30);
-        cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell5.setColspan(1);
-        table.addCell(cell5);
-
-        PdfPCell cell6 = new PdfPCell(new Phrase("Y"));
-        cell6.setFixedHeight(30);
-        cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell6.setColspan(1);
-        table.addCell(cell6);
-
-        PdfPCell cell7 = new PdfPCell(new Phrase("N"));
-        cell7.setFixedHeight(30);
-        cell7.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell7.setColspan(1);
-        table.addCell(cell7);
-
-        PdfPCell cell8 = new PdfPCell(new Phrase("N"));
-        cell8.setFixedHeight(30);
-        cell8.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell8.setColspan(1);
-        table.addCell(cell8);
-
-
-
-        document.add(table);
-
-
-        document.close();
-
+            PdfPCell cell8 = new PdfPCell(new Phrase("N"));
+            cell8.setFixedHeight(30);
+            cell8.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell8.setColspan(1);
+            table.addCell(cell8);
+            try {
+                document.add(table);
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+            document.close();
+        }
     }
 
     public class Rotate extends PdfPageEventHelper {
@@ -394,6 +396,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public static boolean checkIfAlreadyhavePermissionFileWrite(Context context) {
+        int result = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
 
 
     private void updateLabel() {
@@ -404,4 +410,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 200 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+            //create file directry
+            dir = new File(path);
+            if(!dir.exists()){
+                dir.mkdir();
+            }
+
+
+            generatePDF();
+            Log.e("PDF","GENERATED");
+
+        }else{
+            Toast.makeText(MainActivity.this,"Permission Denied",Toast.LENGTH_LONG).show();
+        }
+    }
 }
