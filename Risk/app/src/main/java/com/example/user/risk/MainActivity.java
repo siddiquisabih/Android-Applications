@@ -27,10 +27,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.security.Permission;
@@ -268,6 +270,12 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE}, 200);
         }else{
 
+            dir = new File(path);
+            if(!dir.exists()){
+                dir.mkdir();
+            }
+
+
             // here we get participants names and converted into "String" in second line
             TextView allMemberName = (TextView) findViewById(R.id.namesOfParticipants);
             String Names = allMemberName.getText().toString();
@@ -315,8 +323,6 @@ public class MainActivity extends AppCompatActivity {
             TextView fcontrol = (TextView) findViewById(R.id.furtherControl);
             String furtherControl= fcontrol.getText().toString();
 
-            Rectangle pagesize = new Rectangle(216f, 720f);
-
             Document document = new Document();
 
             try {
@@ -333,8 +339,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             try {
-
-
 
                 PdfPTable topTable = new PdfPTable(2);
                 topTable.getDefaultCell().setBorder(0);
@@ -405,6 +409,36 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+            Image image = null;
+            try {
+                // get input stream
+                InputStream ims = getAssets().open("image_1.png");
+                Bitmap bmp = BitmapFactory.decodeStream(ims);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                image = Image.getInstance(stream.toByteArray());
+                //image.setAbsolutePosition(250f, 10f);
+                image.scalePercent(30f);
+                image.setAlignment(Element.ALIGN_RIGHT);
+                document.add(image);
+            }
+            catch(IOException ex)
+            {
+                Log.e("TEXT",""+ex.toString());
+            } catch (BadElementException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+
+            PdfPTable table1 = new PdfPTable(2);
+            table1.setWidthPercentage(100);
+
+            try {
+                table1.setWidths(new int[]{2, 1});
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
 
 
             PdfPTable table = new PdfPTable(4);
@@ -469,7 +503,21 @@ public class MainActivity extends AppCompatActivity {
             cell8.setColspan(1);
             table.addCell(cell8);
             try {
-                document.add(table);
+                //document.add(table);
+                PdfPCell y = new PdfPCell();
+                y.addElement(table);
+                y.setBorder(Rectangle.NO_BORDER);
+
+                PdfPCell imgCell = new PdfPCell();
+                imgCell.addElement(image);
+                imgCell.setBorder(Rectangle.NO_BORDER);
+
+                table1.addCell(y);
+                table1.addCell(imgCell);
+
+                table1.getDefaultCell().setBorder(0);
+                document.add(table1);
+
             } catch (DocumentException e) {
                 e.printStackTrace();
             }
@@ -511,12 +559,6 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode == 200 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-            //create file directry
-            dir = new File(path);
-            if(!dir.exists()){
-                dir.mkdir();
-            }
 
 
             generatePDF();
